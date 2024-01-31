@@ -1,9 +1,9 @@
 window.onload = function () {
   
-    let milisecondes = 0o0;
+    let millisecondes = 0o0;
     let secondes = 0o0;
     let minutes = 0o0;
-    let displayMilisecondes = document.getElementById('milisecondes');
+    let displayMillisecondes = document.getElementById('millisecondes');
     let displaySecondes = document.getElementById('secondes');
     let displayMinutes = document.getElementById('minutes');
     let buttonStart = document.getElementById('start-button');
@@ -22,30 +22,31 @@ window.onload = function () {
   
     buttonReset.onclick = function() {
         clearInterval(interval);
-        milisecondes = "00";
+        millisecondes = "00";
         secondes = "00";
         minutes = "00";
-        displayMilisecondes.innerHTML = milisecondes;
+        displayMillisecondes.innerHTML = millisecondes;
         displaySecondes.innerHTML = secondes;
         displayMinutes.innerHTML = minutes;     
     }
     
+    // execution de la fonction à chaque interval
     function startTimer () {
-        // milisecondes
-        milisecondes++; 
-        if(milisecondes <= 9) {
-            displayMilisecondes.innerHTML = "0" + milisecondes;
+        // millisecondes
+        millisecondes++; 
+        if(millisecondes <= 9) {
+            displayMillisecondes.innerHTML = "0" + millisecondes;
         }
-        if (milisecondes > 9) {
-            displayMilisecondes.innerHTML = milisecondes;
+        if (millisecondes > 9) {
+            displayMillisecondes.innerHTML = millisecondes;
         } 
 
         // secondes
-        if (milisecondes > 99) {
+        if (millisecondes > 99) {
             secondes++;
             displaySecondes.innerHTML = "0" + secondes;
-            milisecondes = 0;
-            displayMilisecondes.innerHTML = "0" + 0;
+            millisecondes = 0;
+            displayMillisecondes.innerHTML = "0" + 0;
         }
         if (secondes > 9) {
             displaySecondes.innerHTML = secondes; 
