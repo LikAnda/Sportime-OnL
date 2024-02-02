@@ -40,5 +40,45 @@
         </table>
     </div>
 
+    <br>
+
+    <div id="ajouter-participant">
+        <form action="index.php" method="post">
+            <label for="nom">NOM : </label>
+                <input name="nom" id="nom" type="text">
+            <label for="prenom">Prénom : </label>
+                <input name="prenom" id="prenom" type="text">
+            <label for="age">Age : </label>
+                <select name="age" id="age">
+                    <?php
+                    for($i=1;$i<100;$i++) {
+                        echo '<option value='.$i.'>'.$i.'</option>';
+                    }
+                    ?>
+                </select>
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == "POST") { // vérifier si le formulaire avec la method post a été soumis
+            if ((isset($_POST['nom']) && (isset($_POST['prenom']) && (isset($_POST['age']))))) { // vérifier si les données du formulaire existe
+                $nom = strtoupper($_POST['nom']); // mettre le nom en majuscules
+                $prenom = $_POST['prenom'];
+                $age = $_POST['age'];
+
+                if ((!empty($nom)) && (!empty($prenom))) { // vérifier si les champs du prénom et du nom ne sont pas vides
+                    $new_id = rand(10000, 999999); // générer une id pour la primary key de 'id' de la bdd
+                    $requete_check_id = $bdd->prepare('SELECT * FROM `participants` WHERE `id` = '.$new_id); // vérifier si la pk n'existe pas déjà
+                    $requete_check_id->execute();
+                    $nb_user_with_id = $requete_check_id->rowCount();
+                    if ($nb_user_with_id>0) {
+                        // A FINIR ET REVOIR / créer la fonction create_id
+                    }
+                }
+            }
+        }
+        ?>
+    </div>
+
 </body>
 </html>

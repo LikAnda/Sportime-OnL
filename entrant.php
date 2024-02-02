@@ -6,7 +6,8 @@
     <?php include 'database.php' ?>
 
     <?php
-        if (isset($_GET['identifiant'])) { // récupérer en paramètre l'identifiant du participant ainsi que ses données
+        if (isset($_GET['identifiant'])) {
+            // récupérer en paramètre l'identifiant du participant ainsi que ses données
             $requete = 'SELECT `id`, `nom`, `prenom`, `age` FROM `participants`';
             $response = $bdd -> query($requete);
         } else {
