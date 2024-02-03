@@ -1,13 +1,35 @@
+<?php 
+// intégration des fichiers php (dbb + fonctions)
+include 'pdo_conn.php';
+include 'funct.php';
+
+// Utilisation de la méthode PRG (Post/Redirect/Get) pour empecher une nouvelle requête en cas de rafarichissement de la page
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // vérifier si le formulaire avec la method post a été soumis
+    // création du participant dans la base de données
+    if ((isset($_POST['nom']) && (isset($_POST['prenom']) && (isset($_POST['age']))))) { // vérifier si les données du formulaire existe
+        $nom = strtoupper($_POST['nom']); // mettre le nom en majuscules
+        $prenom = $_POST['prenom'];
+        $age = $_POST['age'];
+
+        if ((!empty($nom)) && (!empty($prenom))) { // vérifier si les champs du prénom et du nom ne sont pas vides
+            $id = create_id($bdd, 'participants');
+            $requete = "INSERT INTO `participants` (`id`, `nom`, `prenom`, `age`) VALUES ('".$id."', '".$nom."', '".$prenom."', '".$age."')";
+            $bdd->exec($requete);
+        } else {
+            echo 'Veuillez ne pas laisser les champs vides...';
+        }
+    header("Location: {$_SERVER['REQUEST_URI']}", true, 303); // utilisation de header() pour rediriger sur la page actuelle avec le code de status HTTP 303
+    exit(); // termine le script
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <script src="scripts/stopwatch.js"></script>
-    <?php 
-    include 'pdo_conn.php';
-    include 'funct.php';
-    ?>
 
     <title>Sportime OnL</title>
 </head>
@@ -61,25 +83,6 @@
                 </select>
             <button type="submit">Envoyer</button>
         </form>
-
-        <?php
-        // création du participant dans la base de données
-        if ($_SERVER['REQUEST_METHOD'] == "POST") { // vérifier si le formulaire avec la method post a été soumis
-            if ((isset($_POST['nom']) && (isset($_POST['prenom']) && (isset($_POST['age']))))) { // vérifier si les données du formulaire existe
-                $nom = strtoupper($_POST['nom']); // mettre le nom en majuscules
-                $prenom = $_POST['prenom'];
-                $age = $_POST['age'];
-
-                if ((!empty($nom)) && (!empty($prenom))) { // vérifier si les champs du prénom et du nom ne sont pas vides
-                    $id = create_id($bdd, 'participants');
-                    $requete = "INSERT INTO `participants` (`id`, `nom`, `prenom`, `age`) VALUES ('".$id."', '".$nom."', '".$prenom."', '".$age."')";
-                    $bdd->exec($requete);
-                } else {
-                    echo 'Veuillez ne pas laisser les champs vides...';
-                }
-            }
-        }
-        ?>
     </div>
 
 </body>
