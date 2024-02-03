@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 01 fév. 2024 à 20:55
--- Version du serveur : 10.4.27-MariaDB
--- Version de PHP : 8.1.12
+-- Généré le : sam. 03 fév. 2024 à 15:02
+-- Version du serveur : 10.4.28-MariaDB
+-- Version de PHP : 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `participants` (
-  `id` int(11) NOT NULL,
+  `id` int(5) NOT NULL,
   `nom` varchar(20) DEFAULT NULL,
   `prenom` varchar(20) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL
+  `age` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -41,12 +41,12 @@ CREATE TABLE `participants` (
 --
 
 CREATE TABLE `temps` (
-  `id` int(11) NOT NULL,
-  `minutes` int(11) DEFAULT NULL,
-  `secondes` int(11) DEFAULT NULL,
-  `millisecondes` int(11) DEFAULT NULL,
+  `id` int(5) NOT NULL,
+  `minutes` int(2) DEFAULT NULL,
+  `secondes` int(2) DEFAULT NULL,
+  `millisecondes` int(2) DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `coureur_id` int(11) NOT NULL
+  `coureur_id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
