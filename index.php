@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <script src="scripts/stopwatch.js"></script>
-    <?php include 'database.php' ?>
+    <?php 
+    include 'pdo_conn.php';
+    include 'funct.php';
+    ?>
 
     <title>Sportime OnL</title>
 </head>
@@ -60,6 +63,7 @@
         </form>
 
         <?php
+        // création du participant dans la base de données
         if ($_SERVER['REQUEST_METHOD'] == "POST") { // vérifier si le formulaire avec la method post a été soumis
             if ((isset($_POST['nom']) && (isset($_POST['prenom']) && (isset($_POST['age']))))) { // vérifier si les données du formulaire existe
                 $nom = strtoupper($_POST['nom']); // mettre le nom en majuscules
@@ -67,13 +71,11 @@
                 $age = $_POST['age'];
 
                 if ((!empty($nom)) && (!empty($prenom))) { // vérifier si les champs du prénom et du nom ne sont pas vides
-                    $new_id = rand(10000, 999999); // générer une id pour la primary key de 'id' de la bdd
-                    $requete_check_id = $bdd->prepare('SELECT * FROM `participants` WHERE `id` = '.$new_id); // vérifier si la pk n'existe pas déjà
-                    $requete_check_id->execute();
-                    $nb_user_with_id = $requete_check_id->rowCount();
-                    if ($nb_user_with_id>0) {
-                        // A FINIR ET REVOIR / créer la fonction create_id
-                    }
+                    $id = create_id($bdd, 'participants');
+                    $requete = "INSERT INTO `participants` (`id`, `nom`, `prenom`, `age`) VALUES ('".$id."', '".$nom."', '".$prenom."', '".$age."')";
+                    $bdd->exec($requete);
+                } else {
+                    echo 'Veuillez ne pas laisser les champs vides...';
                 }
             }
         }

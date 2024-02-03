@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
-    <?php include 'database.php' ?>
+    <?php include 'pdo_conn.php' ?>
 
     <?php
         if (isset($_GET['identifiant'])) {
